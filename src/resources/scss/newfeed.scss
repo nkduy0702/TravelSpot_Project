@@ -1,0 +1,46 @@
+.post {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10vh 15vw 10vh 15vw;
+}
+
+.comment {
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+.post__header__img {
+  max-width: 100%;
+  max-height: 100%;
+  padding: 10px 0 10px 0;
+}
+
+.rating {
+  text-align: center;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 34px;
+  color: #ccc;
+  margin: 0 5px;
+}
+
+.star:hover,
+.star.active {
+  color: #ffc107;
+}
+.star.active ~ .star {
+  color: #ccc;
+}
+
+.star.active,
+.star.prev-active {
+  color: #ffc107; /* Màu vàng cho các sao đứng trước */
+}
+
+.star.active {
+  color: #ffc107;
+}

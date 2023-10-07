@@ -1,0 +1,34 @@
+{
+  "name": "travelspot_project",
+  "version": "1.0.0",
+  "description": "Nien Luan Nganh KTPM",
+  "main": "src/app.js",
+  "scripts": {
+    "watch": "node-sass --watch src/resources/scss/app.scss src/public/css/app.css",
+    "watchnf": "node-sass --watch src/resources/scss/newfeed.scss src/public/css/newfeed.css",
+    "watchlogin": "node-sass --watch src/resources/scss/login.scss src/public/css/login.css",
+    "start": "nodemon --inspect src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkduy0702/TravelSpot_Project.git"
+  },
+  "author": "Khanh Duy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nkduy0702/TravelSpot_Project/issues"
+  },
+  "homepage": "https://github.com/nkduy0702/TravelSpot_Project#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.6.1",
+    "node-sass": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
