@@ -1,4 +1,54 @@
 @charset "UTF-8";
+.sttbar-container {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.status-bar {
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  max-width: 74vw;
+  width: 100%;
+  padding: 24px;
+  border-radius: 46px; }
+
+.user-info {
+  display: flex;
+  align-items: center; }
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px; }
+
+.user-name {
+  font-weight: bold; }
+
+textarea {
+  width: calc(100% - 80px);
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none; }
+
+#image-upload {
+  margin-bottom: 10px; }
+
+.btn-sttbar {
+  background-color: #1877f2;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block; }
+
+.btn-sttbar:hover {
+  background-color: #166fe5; }
+
 .post {
   border: 1px solid #ddd;
   padding: 10px;

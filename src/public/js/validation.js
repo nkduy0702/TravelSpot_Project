@@ -79,8 +79,7 @@ form.addEventListener("submit", (e) => {
     if (e.classList.contains("invalid")) isValid = false;
   });
   if (isValid) {
-    alert("Bạn đã đăng ký thành công! Cảm ơn!");
-    // location.replace("/success/newfeed");
+    console.log("------------------Người dùng nhập đúng và đủ các trường!");
   } else {
     alert("Có lỗi, Vui lòng xem lại dữ liệu bạn đã cung cấp");
   }

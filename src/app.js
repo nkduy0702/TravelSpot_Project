@@ -3,7 +3,13 @@ const express = require("express");
 const app = express();
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+
 const port = 3000;
+
+app.use(session({ secret: "14072002", resave: true, saveUninitialized: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // kết nối Router
 const route = require("./routes");
@@ -24,5 +30,5 @@ app.use(express.static(path.join(__dirname, "public")));
 route(app);
 
 app.listen(port, () =>
-  console.log(`Running at http://192.168.27.1:${port}/newfeed`)
+  console.log(`Running at http://192.168.27.1:${port}/login`)
 );

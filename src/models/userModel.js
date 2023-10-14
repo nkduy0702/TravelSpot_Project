@@ -26,13 +26,82 @@ function getInfoUser() {
     console.log("Query results:", results);
   });
 }
+
 // add user into DB
+// Import thêm bcrypt để mã hóa mật khẩu
+const bcrypt = require("bcrypt");
 
-// Sử dụng body-parser để xử lý dữ liệu từ form
+function createUser(req, res) {
+  const { fname, lname, email, password } = req.body;
+  console.log(req.body);
+  const sql =
+    "INSERT INTO users (firstName, lastName, Email, password) VALUES ( ?, ?, ?, ?)";
+  // Kiểm tra xem tên đăng nhập đã tồn tại chưa
+  connection.query(
+    "SELECT * FROM users WHERE email = ?",
+    [email],
+    (err, results) => {
+      if (err) throw err;
+      // console.error("Error inserting data:", err);
+      if (results.length > 0) {
+        // res.send("email already exists");
+        res.render("register", {
+          message: "Email đã tồn tại, vui lòng nhập lại email khác!!",
+        });
+      } else {
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
+        bcrypt.hash(password, 10, (err, hash) => {
+          if (err) throw err;
+          // Lưu thông tin người dùng vào cơ sở dữ liệu
+          connection.query(sql, [fname, lname, email, hash], (err, result) => {
+            if (err) throw err;
+            res.render("login", {
+              message: "  CHÚC MỪNG! BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG! HÃY ĐĂNG NHẬP.",
+            });
+          });
+        });
+      }
+    }
+  );
+}
 
-function createUser(userData, callback) {}
+// Login
+function loginUser(req, res) {
+  const { email, password } = req.body;
+  console.log(req.body);
+  const sql = "SELECT * FROM users WHERE email = ?";
+  connection.query(sql, [email], (err, results) => {
+    if (err) throw err;
+
+    if (results.length > 0) {
+      const user = results[0];
+
+      // So sánh mật khẩu đã mã hóa với mật khẩu người dùng nhập vào
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) throw err;
+
+        if (result) {
+          // Lưu thông tin người dùng vào session
+          req.session.userId = user.id;
+          req.session.username = user.email;
+
+          res.redirect("/newfeed");
+        } else {
+          res.render("login", {
+            message: "Mật khẩu không đúng! vui lòng nhập lại!",
+          });
+        }
+      });
+    } else {
+      res.render("login", {
+        message: "Tài khoản không tồn tại!!",
+      });
+    }
+  });
+}
 
 module.exports = {
   getInfoUser,
   createUser,
+  loginUser,
 };

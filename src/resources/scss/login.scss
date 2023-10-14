@@ -5,6 +5,10 @@ body {
   background-color: #f2f2f2;
 }
 
+.nav-links a {
+  display: none !important;
+}
+
 .login-container {
   display: flex;
   //   align-items: center;
@@ -53,6 +57,29 @@ button {
 
 button:hover {
   background-color: #fab600;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 6px;
+  border-color: #b9b8b9;
+  border-width: thin;
+  border-block-start-width: 6px;
+  position: relative;
+}
+input[type="submit"] {
+  padding: 16px 0;
+  border-radius: 5px;
+  margin-top: 28px;
+  background-color: #796767;
+  color: #fff;
+  border-style: none;
+  cursor: pointer;
+}
+input[type="submit"]:hover {
+  background-color: #382f2f;
 }
 
 @media (max-width: 800px) {

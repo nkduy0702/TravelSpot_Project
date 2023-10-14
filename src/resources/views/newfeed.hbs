@@ -6,6 +6,23 @@
     <link rel="stylesheet" href="./css/newfeed.css" />
   </head>
   <body>
+
+    {{! Status Bar  }}
+    <div class="sttbar-container">
+      <div class="status-bar">
+        <div class="user-info">
+          {{! <img src="./img/logo.png" alt="User Avatar" /> }}
+          <span class="user-name"> Your Name </span>
+        </div>
+        <textarea
+          id="status-text"
+          placeholder="Let Share Your Experience!"
+        ></textarea>
+        <input type="file" id="image-upload" accept="image/*" />
+        <button class="btn-sttbar" onclick="postStatus()">Post</button>
+      </div>
+    </div>
+
     <div class="post" id="post1">
       <div class="post__header">
         <h2 class="post__header_title">TravelSpot Post 1</h2>

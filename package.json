@@ -7,6 +7,7 @@
     "watch": "node-sass --watch src/resources/scss/app.scss src/public/css/app.css",
     "watchnf": "node-sass --watch src/resources/scss/newfeed.scss src/public/css/newfeed.css",
     "watchlogin": "node-sass --watch src/resources/scss/login.scss src/public/css/login.css",
+    "watchregister": "node-sass --watch src/resources/scss/register.scss src/public/css/register.css",
     "start": "nodemon --inspect src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,9 +22,11 @@
   },
   "homepage": "https://github.com/nkduy0702/TravelSpot_Project#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
+    "express-session": "^1.17.3",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.1",
     "node-sass": "^9.0.0"
