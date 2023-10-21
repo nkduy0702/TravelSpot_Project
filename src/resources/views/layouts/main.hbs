@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Travel Spot</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -17,16 +17,43 @@
     {{! Navigation Bar }}
     <header>
       <nav>
-        <img class="header-logo" src="/img/logo-removebg.png" alt="logo" />
-        <ul class="nav-links">
-          <li><a href="/newfeed">Trang chủ</a></li>
-          <li><a href="#">Giới thiệu</a></li>
-          <li><a href="/search">Tìm kiếm</a></li>
-          <li><a href="/post">Đăng bài</a></li>
-        </ul>
+        <a href="/newfeed"><img
+            class="header-logo"
+            src="/img/logo-removebg.png"
+            alt="logo"
+          /></a>
+        <div class="nav-list">
+          <input
+            type="text"
+            class="input-search"
+            placeholder="Địa điểm bạn cần tìm kiếm..."
+          />
+          <a class="input-icon" href="/search">
+            <i class="fas fa-search"></i></a>
+        </div>
         <div class="user-actions">
-          <a href="login">Đăng nhập</a>
-          <a href="register">Đăng ký</a>
+          <a id="login" href="/login">Đăng nhập</a>
+          <a id="register" href="/register">Đăng ký</a>
+          <div class="dropdown">
+            <a href="/newfeed/individualPost" id="NameOFUser"> hihihihih</a>
+            <a
+              id="iconDropDown"
+              onmousemove="toggleDropdown()"
+              class="dropbtn"
+            ><i class="fa-solid fa-caret-down"></i></a>
+            <div
+              id="myDropdown"
+              onmouseleave="hideDropdown()"
+              class="dropdown-content"
+            >
+              <a class="dropdownList" href="/post">Đăng bài</a>
+              <a class="dropdownList" href="/newfeed/individualPost">Quản lý bài
+                post</a>
+              <a class="dropdownList" href="/newfeed/updateInfor">Cập nhật thông
+                tin</a>
+              <a class="dropdownList" href="/login/logout">Đăng xuất</a>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
@@ -45,5 +72,7 @@
         </div>
       </div>
     </Footer>
+    <script src="/js/app.js"></script>
+
   </body>
 </html>

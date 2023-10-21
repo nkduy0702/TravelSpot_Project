@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/post.css" />
+    <title>Chia Sẻ Địa Điểm Du Lịch</title>
+  </head>
+  <body>
+    {{#if message}}
+      <script>
+        alert("{{message}}");
+      </script>
+    {{/if}}
+    <div class="containerFrom">
+
+      {{! render Name of User }}
+      {{#if NameOfUser}}
+        <script>
+          const Nameofuser = document.getElementById("NameOFUser");
+          Nameofuser.style.display = "block"; Nameofuser.innerText = '{{NameOfUser}}'
+        </script>
+      {{/if}}
+
+      <form
+        id="postForm"
+        action="post"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <h1>Chia Sẻ Địa Điểm Du Lịch</h1>
+        <label for="location">Chọn Địa Điểm:</label>
+        <select id="location" name="location" required>
+          <option value="Hà Nội">Hà Nội</option>
+          <option value="Đà Nẵng">Đà Nẵng</option>
+          <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+          <!-- Thêm các địa điểm khác vào đây -->
+        </select>
+
+        <label for="title">Tiêu đề:</label>
+        <input
+          id="title"
+          name="title"
+          placeholder="Nhập tiêu đề bài viết..."
+          required
+        ></input>
+
+        <label for="content">Nội Dung:</label>
+        <textarea
+          id="content"
+          name="content"
+          rows="4"
+          cols="50"
+          placeholder="Nhập nội dung bài viết..."
+          required
+        ></textarea>
+
+
+        <label for="image">Chọn Hình Ảnh:</label>
+        <input
+          type="file"
+          id="image"
+          name="image"
+          accept="image/*"
+          onchange="convertToBase64(this)"
+          required
+        />
+
+        <button type="submit">Đăng Bài</button>
+      </form>
+
+      <div id="posts">
+        <!-- Danh sách các bài viết sẽ được hiển thị ở đây -->
+      </div>
+    </div>
+
+  </body>
+</html>

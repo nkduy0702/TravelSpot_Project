@@ -8,6 +8,10 @@
     "watchnf": "node-sass --watch src/resources/scss/newfeed.scss src/public/css/newfeed.css",
     "watchlogin": "node-sass --watch src/resources/scss/login.scss src/public/css/login.css",
     "watchregister": "node-sass --watch src/resources/scss/register.scss src/public/css/register.css",
+    "watchpost": "node-sass --watch src/resources/scss/post.scss src/public/css/post.css",
+    "watchindividualPost": "node-sass --watch src/resources/scss/individualPost.scss src/public/css/individualPost.css",
+    "watchupdateInfor": "node-sass --watch src/resources/scss/updateInfor.scss src/public/css/updateInfor.css",
+    "watchdetailPost": "node-sass --watch src/resources/scss/detailPost.scss src/public/css/detailPost.css",
     "start": "nodemon --inspect src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +31,7 @@
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.1",
     "node-sass": "^9.0.0"

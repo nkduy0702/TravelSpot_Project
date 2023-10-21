@@ -6,6 +6,11 @@ class LoginController {
     res.render("login", { Message: null });
   }
 
+  indexLogout(req, res) {
+    // console.log("----------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    userModel.logout(req, res);
+  }
+
   login(req, res) {
     userModel.loginUser(req, res);
     // console.log("------------------success-----------");

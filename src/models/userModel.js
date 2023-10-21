@@ -1,4 +1,5 @@
 const mysql = require("mysql2");
+const postModel = require("../models/postsModel");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -13,7 +14,7 @@ connection.connect((err) => {
     console.error("Error connecting to MySQL:", err);
     return;
   }
-  console.log("Connected to MySQL");
+  console.log("Connected to MySQL - USERS");
 });
 
 // Get Information about User
@@ -56,7 +57,7 @@ function createUser(req, res) {
           connection.query(sql, [fname, lname, email, hash], (err, result) => {
             if (err) throw err;
             res.render("login", {
-              message: "  CHÚC MỪNG! BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG! HÃY ĐĂNG NHẬP.",
+              message: "CHÚC MỪNG! BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG! HÃY ĐĂNG NHẬP.",
             });
           });
         });
@@ -68,7 +69,7 @@ function createUser(req, res) {
 // Login
 function loginUser(req, res) {
   const { email, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body); // Thông Tin đăng nhập
   const sql = "SELECT * FROM users WHERE email = ?";
   connection.query(sql, [email], (err, results) => {
     if (err) throw err;
@@ -82,10 +83,32 @@ function loginUser(req, res) {
 
         if (result) {
           // Lưu thông tin người dùng vào session
+          req.session.loggedin = true;
           req.session.userId = user.id;
-          req.session.username = user.email;
+          req.session.email = user.Email;
+          req.session.lastName = user.lastName;
+          req.session.firstName = user.firstName;
 
-          res.redirect("/newfeed");
+          const IdOfUser = user.id;
+
+          const NameOfUser = user.lastName + " " + user.firstName;
+          console.log(NameOfUser);
+
+          postModel.getAllPosts((err, posts) => {
+            if (err) {
+              res
+                .status(500)
+                .json({ success: false, message: "Internal Server Error" });
+            } else {
+              res.render("newfeed", {
+                message: "Đăng nhập thành công!",
+                posts,
+                NameOfUser,
+                IdOfUser,
+              });
+            }
+          });
+          // res.render("newfeed", { message: "Đăng nhập thành công!" });
         } else {
           res.render("login", {
             message: "Mật khẩu không đúng! vui lòng nhập lại!",
@@ -100,8 +123,14 @@ function loginUser(req, res) {
   });
 }
 
+function logout(req, res) {
+  req.session.loggedin = false;
+  res.render("login", { message: "Đăng xuất thành công" });
+}
+
 module.exports = {
   getInfoUser,
   createUser,
   loginUser,
+  logout,
 };

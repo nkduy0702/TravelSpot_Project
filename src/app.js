@@ -8,8 +8,8 @@ const session = require("express-session");
 const port = 3000;
 
 app.use(session({ secret: "14072002", resave: true, saveUninitialized: true }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
+app.use(bodyParser.json({ limit: "10mb" }));
 
 // kết nối Router
 const route = require("./routes");

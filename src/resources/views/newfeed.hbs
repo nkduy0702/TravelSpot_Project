@@ -2,102 +2,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TravelSpot</title>
+    <title>Travel Spot</title>
     <link rel="stylesheet" href="./css/newfeed.css" />
   </head>
   <body>
+    {{#if message}}
+      <script>
+        alert("{{message}}");
+      </script>
+    {{/if}}
 
-    {{! Status Bar  }}
-    <div class="sttbar-container">
-      <div class="status-bar">
-        <div class="user-info">
-          {{! <img src="./img/logo.png" alt="User Avatar" /> }}
-          <span class="user-name"> Your Name </span>
-        </div>
-        <textarea
-          id="status-text"
-          placeholder="Let Share Your Experience!"
-        ></textarea>
-        <input type="file" id="image-upload" accept="image/*" />
-        <button class="btn-sttbar" onclick="postStatus()">Post</button>
-      </div>
+    {{! render Name of User }}
+    {{#if NameOfUser}}
+      <script>
+        const Nameofuser = document.getElementById("NameOFUser");
+        Nameofuser.style.display = "block"; Nameofuser.innerText = '{{NameOfUser}}'
+      </script>
+    {{/if}}
+
+    {{! Render Posts }}
+    <div class="Container_posts">
+      {{#each posts}}
+        <a class="post" href="/newfeed/{{id}}">
+          <div class="Header_Post">
+            <p class="userName">
+              <i class="fa-solid fa-circle-user"></i>
+              {{firstName}}
+              {{lastName}}
+            </p>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              {{location}}
+            </p>
+          </div>
+
+          {{!-- <p class="userId">User ID: {{userId}}</p> --}}
+          <p class="title">{{title}}</p>
+
+          {{!-- <p class="content">Content: {{content}}</p> --}}
+          {{#if image}}
+            <img src="{{image}}" alt="Post Image" class="image" />
+          {{/if}}
+        </a>
+      {{/each}}
+
     </div>
-
-    <div class="post" id="post1">
-      <div class="post__header">
-        <h2 class="post__header_title">TravelSpot Post 1</h2>
-        <img src="./img/logo.png" alt="" class="post__header__img" />
-        <p class="post_header_desc">This is an amazing travel spot!</p>
-      </div>
-      <div class="rating-container">
-        <div class="rating" id="rating">
-          <span class="star" data-value="1">&#9733;</span>
-          <span class="star" data-value="2">&#9733;</span>
-          <span class="star" data-value="3">&#9733;</span>
-          <span class="star" data-value="4">&#9733;</span>
-          <span class="star" data-value="5">&#9733;</span>
-        </div>
-        <p id="result"></p>
-      </div>
-
-      <div class="comment">
-        <h3>Comments:</h3>
-        <ul id="comments1"></ul>
-        <input type="text" id="newComment1" placeholder="Add a comment" />
-        <button onclick="addComment('comments1', 'newComment1')">Add Comment</button>
-      </div>
-    </div>
-
-    <div class="post" id="post2">
-      <div class="post__header">
-        <h2 class="post__header_title">TravelSpot Post 1</h2>
-        <img src="./img/logo.png" alt="" class="post__header__img" />
-        <p class="post_header_desc">This is an amazing travel spot!</p>
-      </div>
-      <div class="rating-container">
-        <div class="rating" id="rating">
-          <span class="star" data-value="1">&#9733;</span>
-          <span class="star" data-value="2">&#9733;</span>
-          <span class="star" data-value="3">&#9733;</span>
-          <span class="star" data-value="4">&#9733;</span>
-          <span class="star" data-value="5">&#9733;</span>
-        </div>
-        <p id="result"></p>
-      </div>
-
-      <div class="comment">
-        <h3>Comments:</h3>
-        <ul id="comments1"></ul>
-        <input type="text" id="newComment1" placeholder="Add a comment" />
-        <button onclick="addComment('comments1', 'newComment1')">Add Comment</button>
-      </div>
-    </div>
-
-    <div class="post" id="post3">
-      <div class="post__header">
-        <h2 class="post__header_title">TravelSpot Post 1</h2>
-        <img src="./img/logo.png" alt="" class="post__header__img" />
-        <p class="post_header_desc">This is an amazing travel spot!</p>
-      </div>
-      <div class="rating-container">
-        <div class="rating" id="rating">
-          <span class="star" data-value="1">&#9733;</span>
-          <span class="star" data-value="2">&#9733;</span>
-          <span class="star" data-value="3">&#9733;</span>
-          <span class="star" data-value="4">&#9733;</span>
-          <span class="star" data-value="5">&#9733;</span>
-        </div>
-        <p id="result"></p>
-      </div>
-
-      <div class="comment">
-        <h3>Comments:</h3>
-        <ul id="comments1"></ul>
-        <input type="text" id="newComment1" placeholder="Add a comment" />
-        <button onclick="addComment('comments1', 'newComment1')">Add Comment</button>
-      </div>
-    </div>
-
-    <script src="./js/newfeed.js"></script>
+    <script src="/js/newfeed.js"></script>
   </body>
 </html>

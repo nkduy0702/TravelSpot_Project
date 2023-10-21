@@ -1,0 +1,55 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Post</title>
+    <link rel="stylesheet" href="/css/detailPost.css" />
+  </head>
+  <body>
+    {{! render Name of User }}
+    {{#if NameOfUser}}
+      <script>
+        const Nameofuser = document.getElementById("NameOFUser");
+        Nameofuser.style.display = "block"; Nameofuser.innerText = '{{NameOfUser}}'
+      </script>
+    {{/if}}
+
+    {{#if content}}
+      <script>
+        const content = `{{content}}`.replace(/&#39;/g, "'").replace(/&quot;/g,
+        "\""); console.log(content);
+        document.addEventListener('DOMContentLoaded', function () {
+        displayContent(content); }); function displayContent(content) { const
+        contentDisplay = document.getElementById('post-content'); const
+        paragraphs = content.split('\n'); paragraphs.forEach(paragraph => {
+        const pElement = document.createElement('p'); pElement.textContent =
+        paragraph; contentDisplay.appendChild(pElement); }); }
+      </script>
+    {{/if}}
+
+    {{! GET POST }}
+    {{#each post}}
+      <div id="Container_post">
+        <h1 id="post-title">{{title}}</h1>
+        <p id="author">Author: {{firstName}} {{lastName}}</p>
+        <img id="post-image" src="{{image}}" alt="Beautiful Beach Sunset" />
+        <div id="post-content">
+
+        </div>
+        <div id="rating-section">
+          <p id="rating">Rating: 4.5/5 {{rating}}</p>
+        </div>
+        <div id="comments-section">
+          <h2>Comments</h2>
+          <ul id="comments-list"></ul>
+          <input
+            type="text"
+            id="comment-input"
+            placeholder="Add a comment..."
+          />
+          <button onclick="addComment()">Add Comment</button>
+        </div>
+      </div>
+    {{/each}}
+  </body>
+</html>

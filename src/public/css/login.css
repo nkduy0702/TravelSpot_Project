@@ -4,7 +4,7 @@ body {
   font-family: "Arial", sans-serif;
   background-color: #f2f2f2; }
 
-.nav-links a {
+.nav-list {
   display: none !important; }
 
 .login-container {
@@ -71,6 +71,12 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #382f2f; }
+
+#logout {
+  display: none; }
+
+.dropdown {
+  display: none; }
 
 @media (max-width: 800px) {
   .img-container {
