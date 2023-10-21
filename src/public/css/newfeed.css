@@ -2,12 +2,6 @@
 #register {
   display: none; }
 
-.image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
-  border-radius: 4px; }
-
 body,
 h1,
 p {

@@ -23,12 +23,11 @@ class NewfeedController {
   }
 
   individual(req, res) {
-    if (req.session.loggedin) {
-      const IdOfUser = req.session.userId;
-      const NameOfUser = req.session.lastName + " " + req.session.firstName;
-      // console.log(IdOfUser);
-      res.render("individualPosts", { IdOfUser, NameOfUser });
-    }
+    postModel.getIndividualPosts(req, res);
+  }
+
+  updatePost(req, res) {
+    res.render("updatePost");
   }
 
   updateinfor(req, res) {

@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/individualPost.css" />
+    <link rel="stylesheet" href="/css/app.css" />
     <title>Individual Post</title>
   </head>
   <body>
@@ -13,6 +14,35 @@
         Nameofuser.style.display = "block"; Nameofuser.innerText = '{{NameOfUser}}'
       </script>
     {{/if}}
-    <h1>Individual Post</h1>
+  {{! Render Posts }}
+    <div class="Container_posts">
+      {{#each posts}}
+        <div class="post" href="/newfeed/{{id}}">
+          <div class="Header_Post">
+            <p class="userName">
+              <i class="fa-solid fa-circle-user"></i>
+              {{firstName}}
+              {{lastName}}
+            </p>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              {{location}}
+            </p>
+          </div>
+          <div class="icon_post">
+            <i class=" fa-solid fa-circle-xmark" id="deleteIcon"><span>{{id}}</span></i>
+            <i class="fa-solid fa-pen"  id="updateIcon"><span>{{id}}</span></i>
+          </div>
+
+          {{!-- <p class="userId">User ID: {{userId}}</p> --}}
+          <p class="title">{{title}}</p>
+
+          {{!-- <p class="content">Content: {{content}}</p> --}}
+          {{#if image}}
+            <img src="{{image}}" alt="Post Image" class="image" />
+          {{/if}}
+        </div>
+      {{/each}}
   </body>
+  <script src="/js/individualPost.js"></script>
 </html>

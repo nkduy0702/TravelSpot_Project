@@ -150,6 +150,7 @@ nav {
     margin: 140px 0 0 200px; } }
 
 footer {
+  width: 100vw;
   height: 84px;
   margin-top: 36px;
   background-color: #333;

@@ -76,8 +76,28 @@ function getPost(req, res) {
   }
 }
 
+function getIndividualPosts(req, res) {
+  if (req.session.loggedin) {
+    const IdOfUser = req.session.userId;
+    const NameOfUser = req.session.lastName + " " + req.session.firstName;
+
+    const sql =
+      "SELECT * FROM users JOIN posts ON users.id = posts.userId where users.id = ?";
+    connection.query(sql, [IdOfUser], (err, posts) => {
+      if (err) {
+        console.error("Error executing query:", err);
+      } else {
+        res.render("individualPosts", { IdOfUser, NameOfUser, posts });
+      }
+    });
+  } else {
+    res.render("login", { message: "Đăng nhập không thành công!!!" }); // Chuyển hướng nếu người dùng chưa đăng nhập
+  }
+}
+
 module.exports = {
   addpost,
   getAllPosts,
   getPost,
+  getIndividualPosts,
 };
