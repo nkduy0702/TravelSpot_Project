@@ -21,6 +21,7 @@ const upload = multer({
   limits: { fileSize: 1024 * 1024 * 5 }, // Giới hạn kích thước file ảnh (5MB)
 }).single("image");
 
+
 router.post("/", upload, postController.addPost);
 router.use("/", postController.index);
 

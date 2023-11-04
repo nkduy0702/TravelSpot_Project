@@ -41,6 +41,28 @@ function addpost(req, res) {
   );
 }
 
+function updatePost(req, res) {
+  const idPost = req.params.slug;
+
+  const { location, content, title } = req.body;
+  console.log(location, content, title);
+
+  const imagePath = req.file ? "/uploads/" + req.file.filename : null;
+  console.log(imagePath);
+
+  const sql =
+    "UPDATE posts SET location = ?, title = ?, content = ?, image = ? WHERE id = ?";
+
+  connection.query(
+    sql,
+    [location, title, content, imagePath, idPost],
+    (err, result) => {
+      if (err) throw err;
+      console.log("Cập nhật thành công!");
+    }
+  );
+}
+
 // Truy vấn các bài post
 
 function getAllPosts(callback) {
@@ -58,17 +80,97 @@ function getAllPosts(callback) {
 function getPost(req, res) {
   if (req.session.loggedin) {
     const IdOfUser = req.session.userId;
+
     const NameOfUser = req.session.lastName + " " + req.session.firstName;
     const idPost = req.params.slug;
     const sql =
       "SELECT * FROM users JOIN posts ON Users.id = posts.userId WHERE posts.id = ?";
+    connection.query(sql, [idPost], (err, posts) => {
+      if (err) throw err;
+      const post = posts[0];
+      const content = posts[0].content;
+      // console.log(content);
+      connection.query(
+        "SELECT * FROM users JOIN comments ON users.id = comments.user_id WHERE comments.post_id = ?",
+        [idPost],
+        (err, rs) => {
+          if (err) throw err;
+          const comments = rs.map((comment) => {
+            comment.isMatchedUser = IdOfUser === comment.user_id;
+            return comment;
+          });
+          // console.log(comments);
+          connection.query(
+            "SELECT * FROM ratings WHERE user_id = ? and post_id = ?",
+            [IdOfUser, idPost],
+            (err, rs) => {
+              if (err) throw err;
+              let isRated;
+              if (rs.length > 0) isRated = true;
+              else isRated = false;
+              connection.query(
+                "SELECT rating FROM ratings WHERE post_id =?  ",
+                [idPost],
+                (err, rs) => {
+                  if (err) throw err;
+                  let haveNoRating;
+                  if (rs.length == 0) haveNoRating = true;
+                  else {
+                    haveNoRating = false;
+                    var total = 0;
+                    rs.forEach((rt) => {
+                      total = total + rt.rating;
+                    });
+                    total = parseFloat(total).toFixed(1);
+                    var ratingResult = total / rs.length;
+                    console.log(haveNoRating);
+                  }
+                  if (haveNoRating)
+                    res.render("detailPost", {
+                      IdOfUser,
+                      NameOfUser,
+                      post,
+                      content,
+                      comments,
+                      isRated,
+                      ratingResult,
+                      haveNoRating,
+                    });
+                  else
+                    res.render("detailPost", {
+                      IdOfUser,
+                      NameOfUser,
+                      post,
+                      content,
+                      comments,
+                      isRated,
+                      ratingResult,
+                    });
+                }
+              );
+            }
+          );
+        }
+      );
+    });
+  } else {
+    res.render("login", { message: "Đăng nhập không thành công!!!" });
+  }
+}
+
+function getInforPost(req, res) {
+  if (req.session.loggedin) {
+    const IdOfUser = req.session.userId;
+    const NameOfUser = req.session.lastName + " " + req.session.firstName;
+    const idPost = req.params.slug;
+    console.log(idPost);
+    const sql = "SELECT * FROM  posts WHERE posts.id = ?";
     connection.query(sql, [idPost], (err, post) => {
       if (err) {
         console.error("Error executing query:", err);
       } else {
-        const content = post[0].content;
-        // console.log(content);
-        res.render("detailPost", { IdOfUser, NameOfUser, post, content });
+        // console.log(post);
+        res.render("updatePost", { IdOfUser, NameOfUser, post });
       }
     });
   } else {
@@ -76,7 +178,7 @@ function getPost(req, res) {
   }
 }
 
-function getIndividualPosts(req, res) {
+function getIndividualPosts(req, res, ms) {
   if (req.session.loggedin) {
     const IdOfUser = req.session.userId;
     const NameOfUser = req.session.lastName + " " + req.session.firstName;
@@ -87,7 +189,12 @@ function getIndividualPosts(req, res) {
       if (err) {
         console.error("Error executing query:", err);
       } else {
-        res.render("individualPosts", { IdOfUser, NameOfUser, posts });
+        res.render("individualPosts", {
+          message: ms,
+          IdOfUser,
+          NameOfUser,
+          posts,
+        });
       }
     });
   } else {
@@ -95,9 +202,80 @@ function getIndividualPosts(req, res) {
   }
 }
 
+function deletePost(req, res) {
+  const { id } = req.body;
+  const sql = "DELETE FROM posts where posts.id = ?";
+  connection.query(sql, [id], (err, result) => {
+    if (err) throw err;
+    console.log("Delete Post Success!!");
+  });
+  res.send("ok");
+}
+
+function addComment(req, res) {
+  const postId = req.params.slug;
+  const userId = req.session.userId; // Lấy ID của người dùng hiện tại
+  const content = req.body.comment;
+  // console.log(postId, userId, content);
+
+  connection.query(
+    "INSERT INTO comments (post_id, user_id, content) VALUES (?, ?, ?)",
+    [postId, userId, content],
+    (err, results) => {
+      if (err) throw err;
+
+      // Chuyển hướng người dùng trở lại trang chi tiết bài viết sau khi thêm bình luận
+      res.redirect(`/newfeed/${postId}/#comments-section`);
+    }
+  );
+}
+
+function delCmt(req, res) {
+  const { idCmt } = req.body;
+  const sql = "DELETE FROM comments where id = ?";
+  connection.query(sql, [idCmt], (err, result) => {
+    if (err) throw err;
+    console.log("Delete Comment Success!!");
+  });
+  res.send("ok");
+}
+
+function updateCmt(req, res) {
+  const { idCmt, contentEdited } = req.body;
+  // console.log(idCmt, contentEdited);
+  const sql = "UPDATE comments SET content = ? WHERE id = ?";
+  connection.query(sql, [contentEdited, idCmt], (err, rs) => {
+    if (err) throw err;
+
+    console.log("Update Comment Successfully!!");
+    res.send("");
+  });
+}
+
+function rating(req, res) {
+  const userId = req.session.userId;
+
+  const { rating, postID } = req.body;
+  // console.log(rating, userId, postID);
+  const sql = "INSERT INTO ratings (user_id, post_id, rating) VALUES (?, ?, ?)";
+
+  connection.query(sql, [userId, postID, rating], (err, rs) => {
+    if (err) throw err;
+    console.log("Rating successfully!");
+    res.send("ok");
+  });
+}
+
 module.exports = {
   addpost,
   getAllPosts,
   getPost,
   getIndividualPosts,
+  deletePost,
+  getInforPost,
+  updatePost,
+  addComment,
+  delCmt,
+  updateCmt,
+  rating,
 };

@@ -18,13 +18,13 @@ connection.connect((err) => {
 });
 
 // Get Information about User
-function getInfoUser() {
-  connection.query("SELECT * FROM user", (err, results, fields) => {
+function getInforUser(req, res) {
+  const id = req.session.userId;
+  connection.query("SELECT * FROM user WHERE Id = ?", [id], (err, results) => {
     if (err) {
       console.error("Error executing query:", err);
-      return;
     }
-    console.log("Query results:", results);
+    return results[0];
   });
 }
 
@@ -129,7 +129,7 @@ function logout(req, res) {
 }
 
 module.exports = {
-  getInfoUser,
+  getInforUser,
   createUser,
   loginUser,
   logout,

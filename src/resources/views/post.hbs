@@ -2,6 +2,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/app.css" />
     <link rel="stylesheet" href="./css/post.css" />
     <title>Chia Sẻ Địa Điểm Du Lịch</title>
   </head>
@@ -30,10 +31,7 @@
         <h1>Chia Sẻ Địa Điểm Du Lịch</h1>
         <label for="location">Chọn Địa Điểm:</label>
         <select id="location" name="location" required>
-          <option value="Hà Nội">Hà Nội</option>
-          <option value="Đà Nẵng">Đà Nẵng</option>
-          <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-          <!-- Thêm các địa điểm khác vào đây -->
+        <option value="" disabled selected>Chọn tỉnh thành</option>
         </select>
 
         <label for="title">Tiêu đề:</label>
@@ -69,9 +67,12 @@
       </form>
 
       <div id="posts">
-        <!-- Danh sách các bài viết sẽ được hiển thị ở đây -->
       </div>
     </div>
+    <script src="/js/app.js"></script>
+
+  <script src="/js/post.js"></script>
+  
 
   </body>
 </html>

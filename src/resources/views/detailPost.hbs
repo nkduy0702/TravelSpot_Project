@@ -5,6 +5,7 @@
     <title>Detail Post</title>
     <link rel="stylesheet" href="/css/detailPost.css" />
     <link rel="stylesheet" href="/css/app.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
   </head>
   <body>
@@ -19,8 +20,7 @@
     {{#if content}}
       <script>
         const content = `{{content}}`.replace(/&#39;/g, "'").replace(/&quot;/g,
-        "\""); console.log(content);
-        document.addEventListener('DOMContentLoaded', function () {
+        "\""); document.addEventListener('DOMContentLoaded', function () {
         displayContent(content); }); function displayContent(content) { const
         contentDisplay = document.getElementById('post-content'); const
         paragraphs = content.split('\n'); paragraphs.forEach(paragraph => {
@@ -29,28 +29,102 @@
       </script>
     {{/if}}
 
+    {{#if isRated}}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () { const rating
+        = document.getElementById("rating__block"); rating.style.display =
+        "none"; console.log(rating); })
+
+      </script>
+    {{/if}}
+
+    {{#if haveNoRating}}
+      <script>
+        document.addEventListener('DOMContentLoaded', function () { const
+        rating_norating = document.getElementById("rating__NoRating");
+        rating_norating.style = null; rating_norating.style.display = "block";
+        })
+      </script>
+    {{/if}}
+
     {{! GET POST }}
-    {{#each post}}
+    {{#if post}}
       <div id="Container_post">
-        <h1 id="post-title">{{title}}</h1>
-        <p id="author">Author: {{firstName}} {{lastName}}</p>
-        <img id="post-image" src="{{image}}" alt="Beautiful Beach Sunset" />
+        <h1 id="post-title">{{post.title}}</h1>
+        <p id="author">Author: {{post.firstName}} {{post.lastName}}</p>
+        <img
+          id="post-image"
+          src="{{post.image}}"
+          alt="Beautiful Beach Sunset"
+        />
         <div id="post-content">
         </div>
         <div id="rating-section">
-          <p id="rating">Rating: 4.5/5 {{rating}}</p>
+          {{#if ratingResult}}
+            <div id="rating__result">{{ratingResult}}/5 <span>★</span></div>
+          {{/if}}
+          <div id="rating__NoRating" style="display: none;">Chưa có đánh giá</div>
+          <div id="rating__block">
+            <div class="rating" id="rating">
+              <input type="radio" id="star5" name="rating" value="5" /><label
+                for="star5"
+                title="5 stars"
+              ></label>
+              <input type="radio" id="star4" name="rating" value="4" /><label
+                for="star4"
+                title="4 stars"
+              ></label>
+              <input type="radio" id="star3" name="rating" value="3" /><label
+                for="star3"
+                title="3 stars"
+              ></label>
+              <input type="radio" id="star2" name="rating" value="2" /><label
+                for="star2"
+                title="2 stars"
+              ></label>
+              <input type="radio" id="star1" name="rating" value="1" /><label
+                for="star1"
+                title="1 star"
+              ></label>
+            </div>
+            <button onclick="submitRating()">Submit Rating</button>
+          </div>
         </div>
         <div id="comments-section">
           <h2>Comments</h2>
-          <ul id="comments-list"></ul>
-          <input
-            type="text"
-            id="comment-input"
-            placeholder="Add a comment..."
-          />
-          <button onclick="addComment()">Add Comment</button>
+          <form action="/newfeed/{{post.id}}" method="post">
+            <textarea
+              name="comment"
+              id="comment-input"
+              placeholder="Add a comment..."
+              rows="1"
+              required
+            ></textarea>
+            <button type="submit">Add Comment</button>
+          </form>
+          <ul id="comments-list">
+            {{#each comments}}
+              <li>
+                <span id="id">{{id}}</span>
+
+                <div class="content__cmt">
+                  <strong>{{firstName}} {{lastName}} {{IdOfUser}}</strong>:
+                  <span>{{content}}</span>
+                </div>
+                {{#if isMatchedUser}}
+                  <div class="icon__cmt">
+                    <i class="fa-solid fa-pen-to-square editCmtIcon"></i>
+                    <i class="fa-solid fa-trash delCmtIcon"></i>
+                  </div>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ul>
         </div>
       </div>
-    {{/each}}
+    {{/if}}
   </body>
+  <script src="/js/comments.js"></script>
+  <script src="/js/app.js"></script>
+
 </html>

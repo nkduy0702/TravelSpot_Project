@@ -23,7 +23,7 @@
   overflow: hidden;
   transition: transform 0.3s;
   box-sizing: border-box;
-  padding: 1%;
+  padding: 1% 1% 2% 1%;
 }
 
 /* Hover effect for post */
@@ -46,6 +46,7 @@
   flex-direction: column;
   top: -56px;
   justify-content: space-between;
+  color: rgba(128, 128, 128, 0.877);
 }
 i > span {
   display: none;
@@ -97,4 +98,18 @@ i > span {
   height: 200px;
   object-fit: cover;
   border-radius: 24px;
+}
+
+.deleteIcon,
+.updateIcon {
+  transition: transform 0.3s;
+}
+
+.deleteIcon:hover {
+  transform: scale(1.03);
+  color: rgba(0, 0, 0, 0.629);
+}
+.updateIcon:hover {
+  transform: scale(1.03);
+  color: rgba(0, 0, 0, 0.629);
 }

@@ -2,11 +2,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/individualPost.css" />
     <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/individualPost.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <title>Individual Post</title>
   </head>
   <body>
+     {{#if message}}
+      <script>
+        alert("{{message}}");
+      </script>
+    {{/if}}
     {{! render Name of User }}
     {{#if NameOfUser}}
       <script>
@@ -17,7 +24,7 @@
   {{! Render Posts }}
     <div class="Container_posts">
       {{#each posts}}
-        <div class="post" href="/newfeed/{{id}}">
+        <div class="post">
           <div class="Header_Post">
             <p class="userName">
               <i class="fa-solid fa-circle-user"></i>
@@ -30,8 +37,8 @@
             </p>
           </div>
           <div class="icon_post">
-            <i class=" fa-solid fa-circle-xmark" id="deleteIcon"><span>{{id}}</span></i>
-            <i class="fa-solid fa-pen"  id="updateIcon"><span>{{id}}</span></i>
+            <i class=" fa-solid fa-circle-xmark deleteIcon"><span>{{id}}</span></i>
+            <i class="fa-solid fa-pen updateIcon"><span>{{id}}</span></i>
           </div>
 
           {{!-- <p class="userId">User ID: {{userId}}</p> --}}
@@ -43,6 +50,10 @@
           {{/if}}
         </div>
       {{/each}}
-  </body>
+  <script src="/js/app.js"></script>
   <script src="/js/individualPost.js"></script>
+  </body>
+
+
+  
 </html>

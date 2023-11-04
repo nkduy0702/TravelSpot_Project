@@ -1,4 +1,5 @@
 const postModel = require("../models/postsModel");
+const userModel = require("../models/userModel");
 
 class NewfeedController {
   // [GET] /newfeed
@@ -26,23 +27,47 @@ class NewfeedController {
     postModel.getIndividualPosts(req, res);
   }
 
+  deletePost(req, res) {
+    postModel.deletePost(req, res);
+  }
+
+  updatePostform(req, res) {
+    postModel.getInforPost(req, res);
+  }
+
   updatePost(req, res) {
-    res.render("updatePost");
+    postModel.updatePost(req, res);
+    postModel.getIndividualPosts(req, res, "Cập nhật thành công!!");
   }
 
   updateinfor(req, res) {
     if (req.session.loggedin) {
       const IdOfUser = req.session.userId;
       const NameOfUser = req.session.lastName + " " + req.session.firstName;
+      // const user = userModel.getInforUser(req, res);
       // console.log(IdOfUser);
       res.render("updateInfor", { IdOfUser, NameOfUser });
     }
   }
 
   detailPost(req, res) {
-    console.log(req.params.slug);
+    // console.log(req.params.slug);
     postModel.getPost(req, res);
     // console.log(IdOfUser);
+  }
+  addcmt(req, res) {
+    console.log("Suuccess");
+    postModel.addComment(req, res);
+  }
+  delcmt(req, res) {
+    postModel.delCmt(req, res);
+  }
+
+  updateCmt(req, res) {
+    postModel.updateCmt(req, res);
+  }
+  rating(req, res) {
+    postModel.rating(req, res);
   }
 }
 

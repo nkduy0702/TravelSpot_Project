@@ -31,6 +31,11 @@ class PostController {
       }
     });
   }
+
+  rating(req, res) {
+    const { rating } = req.body;
+    console.log(rating);
+  }
 }
 
 module.exports = new PostController();
