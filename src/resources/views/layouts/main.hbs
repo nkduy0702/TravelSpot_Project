@@ -10,6 +10,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="/css/app.css" />
 
   </head>
@@ -25,12 +26,12 @@
           /></a>
         <div class="nav-list">
           <input
+            id="search__box"
             type="text"
             class="input-search"
             placeholder="Địa điểm bạn cần tìm kiếm..."
           />
-          <a class="input-icon" href="/search">
-            <i class="fas fa-search"></i></a>
+          <i id="search__icon" class="fas fa-search search__icon"></i>
         </div>
         <div class="user-actions">
           <a id="login" href="/login">Đăng nhập</a>
@@ -59,6 +60,9 @@
       </nav>
     </header>
     <script src="/js/app.js"></script>
+    <script src="/js/search.js"></script>
+
+    <div class="space" style="min-height: 120px;"></div>
 
     {{{body}}}
 

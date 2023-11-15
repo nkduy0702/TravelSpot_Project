@@ -40,14 +40,12 @@ class NewfeedController {
     postModel.getIndividualPosts(req, res, "Cập nhật thành công!!");
   }
 
+  indexUpdateinfor(req, res) {
+    userModel.getInforUser(req, res);
+  }
+
   updateinfor(req, res) {
-    if (req.session.loggedin) {
-      const IdOfUser = req.session.userId;
-      const NameOfUser = req.session.lastName + " " + req.session.firstName;
-      // const user = userModel.getInforUser(req, res);
-      // console.log(IdOfUser);
-      res.render("updateInfor", { IdOfUser, NameOfUser });
-    }
+    userModel.updateInfor(req, res);
   }
 
   detailPost(req, res) {

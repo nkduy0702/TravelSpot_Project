@@ -2,3 +2,70 @@
 #register {
   display: none !important;
 }
+.nav-list {
+  display: none !important;
+}
+
+.container__updateBox {
+  position: relative;
+  left: 25vw;
+  height: 30rem;
+  width: 50vw;
+  box-shadow: 0 4px 14px #333;
+  padding: 28px 20px;
+  padding-bottom: 6%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.Update__header {
+  margin-top: 22px;
+}
+
+.container__updateBox > div > label {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+.container__updateBox > div {
+  text-align: center;
+}
+.update__list {
+  display: flex;
+  justify-content: space-between;
+}
+
+#update {
+  padding: 6px;
+  border-radius: 6px;
+  color: white;
+  background-color: green;
+  border: 1px solid grey;
+  display: none;
+}
+#update:hover {
+  cursor: pointer;
+  background-color: rgb(9, 213, 9);
+}
+#editicon:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+  opacity: 0.5;
+}
+
+#editicon {
+  position: relative;
+  left: 48%;
+  font-size: 24px;
+  bottom: 110%;
+  transition: transform 0.5s ease;
+}
+#editicon > span {
+  display: none;
+}
+.contentUpdate {
+  padding: 4px;
+  height: 26px;
+  width: 300px;
+}

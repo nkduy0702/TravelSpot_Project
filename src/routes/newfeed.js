@@ -22,12 +22,12 @@ const upload = multer({
   limits: { fileSize: 1024 * 1024 * 5 }, // Giới hạn kích thước file ảnh (5MB)
 }).single("image");
 
-router.use("/updateInfor", newfeedController.updateinfor);
 router.post("/individualPost/:slug", upload, newfeedController.updatePost);
 router.use("/individualPost/:slug", newfeedController.updatePostform);
 router.post("/individualPost", newfeedController.deletePost);
 router.use("/individualPost", newfeedController.individual);
-router.use("/updateInfor", newfeedController.updateinfor);
+router.post("/updateInfor", newfeedController.updateinfor);
+router.use("/updateInfor", newfeedController.indexUpdateinfor);
 router.post("/rating", newfeedController.rating);
 router.post("/delcmt", newfeedController.delcmt);
 router.post("/edit", newfeedController.updateCmt);

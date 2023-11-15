@@ -107,3 +107,7 @@ input[type="submit"]:hover {
 
 .dropdown {
   display: none; }
+
+footer {
+  position: relative !important;
+  top: 0 !important; }

@@ -80,9 +80,10 @@ function getAllPosts(callback) {
 function getPost(req, res) {
   if (req.session.loggedin) {
     const IdOfUser = req.session.userId;
-
     const NameOfUser = req.session.lastName + " " + req.session.firstName;
+
     const idPost = req.params.slug;
+
     const sql =
       "SELECT * FROM users JOIN posts ON Users.id = posts.userId WHERE posts.id = ?";
     connection.query(sql, [idPost], (err, posts) => {
@@ -105,14 +106,16 @@ function getPost(req, res) {
             [IdOfUser, idPost],
             (err, rs) => {
               if (err) throw err;
+
               let isRated;
               if (rs.length > 0) isRated = true;
               else isRated = false;
               connection.query(
-                "SELECT rating FROM ratings WHERE post_id =?  ",
+                "SELECT rating FROM ratings WHERE post_id =?",
                 [idPost],
                 (err, rs) => {
                   if (err) throw err;
+
                   let haveNoRating;
                   if (rs.length == 0) haveNoRating = true;
                   else {
@@ -123,7 +126,7 @@ function getPost(req, res) {
                     });
                     total = parseFloat(total).toFixed(1);
                     var ratingResult = total / rs.length;
-                    console.log(haveNoRating);
+                    // console.log(haveNoRating);
                   }
                   if (haveNoRating)
                     res.render("detailPost", {
@@ -266,6 +269,31 @@ function rating(req, res) {
   });
 }
 
+function search(req, res) {
+  const { contentSearch } = req.body;
+
+  // Chống SQL injection bằng cách sử dụng tham số truy vấn
+  const sanitizedSearch = connection.escape(contentSearch);
+
+  const sql = `
+  SELECT * FROM users JOIN posts ON users.id = posts.userId
+    WHERE
+      LOWER(REPLACE(REPLACE(location COLLATE utf8mb4_unicode_ci, 'đ', 'd'), ' ', '')) LIKE LOWER(REPLACE(REPLACE(CONCAT('%', ${sanitizedSearch}, '%') COLLATE utf8mb4_unicode_ci, 'd', 'đ'), ' ', ''))
+      OR
+      LOWER(REPLACE(REPLACE(location COLLATE utf8mb4_unicode_ci, 'd', 'đ'), ' ', '')) LIKE LOWER(REPLACE(REPLACE(CONCAT('%', ${sanitizedSearch}, '%') COLLATE utf8mb4_unicode_ci, 'đ', 'd'), ' ', ''))
+    LIMIT 0, 1000;`;
+
+  connection.query(sql, (err, posts) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Lỗi Nội Server");
+    } else {
+      console.log(posts);
+      res.send(posts);
+    }
+  });
+}
+
 module.exports = {
   addpost,
   getAllPosts,
@@ -278,4 +306,5 @@ module.exports = {
   delCmt,
   updateCmt,
   rating,
+  search,
 };

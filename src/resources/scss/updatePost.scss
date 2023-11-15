@@ -4,6 +4,9 @@ body {
   margin: 0;
   padding: 0;
 }
+.nav-list {
+  display: none !important;
+}
 
 form {
   display: flex;

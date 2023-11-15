@@ -12,7 +12,7 @@
     "watchindividualPost": "node-sass --watch src/resources/scss/individualPost.scss src/public/css/individualPost.css",
     "watchupdateInfor": "node-sass --watch src/resources/scss/updateInfor.scss src/public/css/updateInfor.css",
     "watchdetailPost": "node-sass --watch src/resources/scss/detailPost.scss src/public/css/detailPost.css",
-    "watchupdatelPost": "node-sass --watch src/resources/scss/updatePost.scss src/public/css/updatePost.css",
+    "watchupdatePost": "node-sass --watch src/resources/scss/updatePost.scss src/public/css/updatePost.css",
     "start": "nodemon --inspect src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

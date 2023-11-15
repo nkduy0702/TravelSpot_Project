@@ -15,7 +15,33 @@
         Nameofuser.style.display = "block"; Nameofuser.innerText = '{{NameOfUser}}'
       </script>
     {{/if}}
-    <h1>Update Information</h1>
+
+    {{! Content }}
+    {{#each user}}
+      <div class="container__updateBox">
+        <div class="Update__header">
+          <h1 class="title__update" style="font-size: 40px;">Thông tin người
+            dùng</h1>
+          <i class="fa-solid fa-pen-to-square" id="editicon">
+            <span id="id">{{id}}</span>
+          </i>
+        </div>
+        <div class="update__list">
+          <label>FirstName: </label>
+          <span>{{firstName}}</span>
+        </div>
+        <div class="update__list">
+          <label>LastName: </label>
+          <span>{{lastName}}</span>
+        </div>
+        <div class="update__list">
+          <label>Email: </label>
+          <span>{{Email}}</span>
+        </div>
+        <button id="Update"> Cập nhật </button>
+      </div>
+    {{/each}}
+    <script src="/js/updateInfor.js"></script>
   </body>
 
 </html>

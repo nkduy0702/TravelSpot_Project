@@ -1,0 +1,8 @@
+#login,
+#register {
+  display: none; }
+
+#search__icon {
+  font-size: 24px !important;
+  position: relative !important;
+  top: 4px !important; }

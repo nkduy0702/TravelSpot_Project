@@ -2,6 +2,7 @@ const newfeedRouter = require("./newfeed");
 const registerRouter = require("./register");
 const loginRouter = require("./login");
 const postRouter = require("./post");
+const searchtRouter = require("./search");
 
 function Route(app) {
   app.use("/newfeed", newfeedRouter);
@@ -12,9 +13,7 @@ function Route(app) {
 
   app.use("/post", postRouter);
 
-  app.get("/search", (req, res) => {
-    res.render("search");
-  });
+  app.use("/search", searchtRouter);
 }
 
 module.exports = Route;

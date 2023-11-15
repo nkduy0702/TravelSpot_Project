@@ -19,13 +19,31 @@ connection.connect((err) => {
 
 // Get Information about User
 function getInforUser(req, res) {
-  const id = req.session.userId;
-  connection.query("SELECT * FROM user WHERE Id = ?", [id], (err, results) => {
-    if (err) {
-      console.error("Error executing query:", err);
-    }
-    return results[0];
+  if (req.session.loggedin) {
+    const id = req.session.userId;
+    const NameOfUser = req.session.lastName + " " + req.session.firstName;
+    connection.query("SELECT * FROM users WHERE Id = ?", [id], (err, user) => {
+      if (err) {
+        console.error("Error executing query:", err);
+      } else {
+        res.render("updateInfor", { user, NameOfUser });
+      }
+    });
+  } else {
+    res.render("login", { message: "Đăng nhập không thành công!!!" }); // Chuyển hướng nếu người dùng chưa đăng nhập
+  }
+}
+
+function updateInfor(req, res) {
+  const { fn, ln, email, id } = req.body;
+  const sql =
+    "UPDATE users SET firstName = ?, lastName = ?, email = ? WHERE id = ?";
+
+  connection.query(sql, [fn, ln, email, id], (err, rs) => {
+    if (err) throw err;
+    res.send("OK");
   });
+  // console.log(fn, ln, email, id);
 }
 
 // add user into DB
@@ -133,4 +151,5 @@ module.exports = {
   createUser,
   loginUser,
   logout,
+  updateInfor,
 };

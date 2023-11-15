@@ -16,7 +16,7 @@ delcmt.forEach((elm) => {
         url: "/newfeed/delcmt",
         method: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ idCmt: idCmt }), // Dữ liệu gửi lên server
+        data: JSON.stringify({ idCmt }), // Dữ liệu gửi lên server
         success: function (res) {
           console.log(res);
           location.reload();

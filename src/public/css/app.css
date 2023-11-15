@@ -8,6 +8,10 @@
 
 /* Style cho header và navigation */
 header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1;
   min-height: 12vh;
   margin-bottom: 36px;
   background-color: #333;
@@ -31,7 +35,7 @@ nav {
 
 .nav-list {
   position: absolute;
-  left: 30vw;
+  left: 28vw;
   top: 24px; }
 
 .input-search {
@@ -52,6 +56,17 @@ nav {
 
 .input-icon:hover {
   color: #ff6e619f; }
+
+#search__icon {
+  font-size: 24px !important;
+  position: relative !important;
+  top: 2px !important;
+  transition: transform 0.5s ease-in; }
+
+#search__icon:hover {
+  cursor: pointer;
+  color: #ff5733;
+  transform: scale(1.2); }
 
 .user-actions {
   margin: 10px 0 0 0; }
@@ -150,6 +165,8 @@ nav {
     margin: 140px 0 0 200px; } }
 
 footer {
+  position: relative;
+  top: 20vh;
   width: 100%;
   height: 84px;
   margin-top: 36px;
