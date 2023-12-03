@@ -1,6 +1,8 @@
 #login,
+#statUser,
+#statPost,
 #register {
-  display: none !important; }
+  display: none; }
 
 .nav-list {
   display: none !important; }
@@ -12,7 +14,7 @@
   width: 50vw;
   box-shadow: 0 4px 14px #333;
   padding: 28px 20px;
-  padding-bottom: 6%;
+  padding-bottom: 3%;
   display: flex;
   justify-content: space-between;
   flex-direction: column; }
@@ -32,6 +34,13 @@
   display: flex;
   justify-content: space-between; }
 
+#updatePass {
+  padding: 6px;
+  border-radius: 6px;
+  color: white;
+  background-color: green;
+  border: 1px solid grey; }
+
 #update {
   padding: 6px;
   border-radius: 6px;
@@ -40,7 +49,8 @@
   border: 1px solid grey;
   display: none; }
 
-#update:hover {
+#update:hover,
+#updatePass:hover {
   cursor: pointer;
   background-color: #09d509; }
 

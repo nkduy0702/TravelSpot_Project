@@ -19,7 +19,7 @@
     {{! Navigation Bar }}
     <header>
       <nav>
-        <a href="/newfeed"><img
+        <a href="/newfeed" id="logoLink"><img
             class="header-logo"
             src="/img/logo-removebg.png"
             alt="logo"
@@ -37,7 +37,7 @@
           <a id="login" href="/login">Đăng nhập</a>
           <a id="register" href="/register">Đăng ký</a>
           <div class="dropdown">
-            <a href="/newfeed/individualPost" id="NameOFUser"> hihihihih</a>
+            <a href="/newfeed/individualPost" id="NameOFUser"></a>
             <a
               id="iconDropDown"
               onmousemove="toggleDropdown()"
@@ -48,12 +48,15 @@
               onmouseleave="hideDropdown()"
               class="dropdown-content"
             >
-              <a class="dropdownList" href="/post">Đăng bài</a>
-              <a class="dropdownList" href="/newfeed/individualPost">Quản lý bài
-                post</a>
-              <a class="dropdownList" href="/newfeed/updateInfor">Cập nhật thông
-                tin</a>
-              <a class="dropdownList" href="/login/logout">Đăng xuất</a>
+              <a class="dropdownList noAD" href="/post">Đăng bài</a>
+              <a class="dropdownList noAD" href="/newfeed/individualPost">Quản
+                lý bài post</a>
+              <a class="dropdownList noAD" href="/newfeed/updateInfor">Cập nhật
+                thông tin</a>
+              <a class="dropdownList" id="statUser">Thống Kê người dùng</a>
+              <a class="dropdownList" id="statPost">Thống Kê Bài viết</a>
+              <a class="dropdownList noAD" href="/login/logout">Đăng xuất</a>
+
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ const registerRouter = require("./register");
 const loginRouter = require("./login");
 const postRouter = require("./post");
 const searchtRouter = require("./search");
+const adminRouter = require("./admin");
 
 function Route(app) {
   app.use("/newfeed", newfeedRouter);
@@ -14,6 +15,8 @@ function Route(app) {
   app.use("/post", postRouter);
 
   app.use("/search", searchtRouter);
+
+  app.use("/admin", adminRouter);
 }
 
 module.exports = Route;

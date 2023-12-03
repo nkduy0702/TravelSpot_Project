@@ -1,9 +1,14 @@
 const path = require("path");
 const express = require("express");
 const app = express();
+// const handlebarsDate = require("handlebars");
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const moment = require("moment-timezone"); // Import moment-timezone
+
+// Import ngôn ngữ tiếng Việt
+require("moment/locale/vi");
 
 const port = 3000;
 
@@ -13,13 +18,23 @@ app.use(bodyParser.json({ limit: "10mb" }));
 
 // kết nối Router
 const route = require("./routes");
+const hbs = handlebars.create({
+  extname: ".hbs",
+  helpers: {
+    formatDate: (date) => {
+      return moment(date).fromNow();
+    },
+  },
+});
 
-app.engine(
-  "hbs",
-  handlebars.engine({
-    extname: ".hbs",
-  })
-);
+app.engine("hbs", hbs.engine);
+
+// app.engine(
+//   "hbs",
+//   handlebars.engine({
+//     extname: ".hbs",
+//   })
+// );
 app.set("view engine", "hbs");
 
 app.set("views", path.join(__dirname, "resources", "views"));

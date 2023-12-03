@@ -1,5 +1,4 @@
 const express = require("express");
-
 const router = express.Router();
 const newfeedController = require("../controllers/NewfeedController");
 
@@ -26,6 +25,7 @@ router.post("/individualPost/:slug", upload, newfeedController.updatePost);
 router.use("/individualPost/:slug", newfeedController.updatePostform);
 router.post("/individualPost", newfeedController.deletePost);
 router.use("/individualPost", newfeedController.individual);
+router.post("/updateInfor/pass", newfeedController.updatePass);
 router.post("/updateInfor", newfeedController.updateinfor);
 router.use("/updateInfor", newfeedController.indexUpdateinfor);
 router.post("/rating", newfeedController.rating);

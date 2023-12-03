@@ -84,6 +84,20 @@ function createUser(req, res) {
   );
 }
 
+function updatePass(req, res) {
+  const { newPass, id } = req.body;
+  const sql = "UPDATE users SET password = ? WHERE id = ?";
+  console.log(newPass, id);
+  bcrypt.hash(newPass, 10, (err, hash) => {
+    if (err) throw err;
+    // Lưu thông tin người dùng vào cơ sở dữ liệu
+    connection.query(sql, [hash, id], (err, result) => {
+      if (err) throw err;
+      res.send("Bạn đã cập nhật thành công!");
+    });
+  });
+}
+
 // Login
 function loginUser(req, res) {
   const { email, password } = req.body;
@@ -117,6 +131,8 @@ function loginUser(req, res) {
               res
                 .status(500)
                 .json({ success: false, message: "Internal Server Error" });
+            } else if (user.id == 1) {
+              res.render("admin");
             } else {
               res.render("newfeed", {
                 message: "Đăng nhập thành công!",
@@ -146,10 +162,39 @@ function logout(req, res) {
   res.render("login", { message: "Đăng xuất thành công" });
 }
 
+function stat(req, res) {
+  const sql1 = "SELECT * FROM users;";
+  const sql2 = "SELECT COUNT(*) as userCount FROM users;";
+
+  // Thực hiện truy vấn lấy danh sách người dùng
+  connection.query(sql1, (err, results1) => {
+    if (err) {
+      console.error(err);
+      throw err;
+    }
+    results1.shift();
+    const users = results1;
+
+    // Tiếp theo, thực hiện truy vấn lấy tổng số người dùng
+    connection.query(sql2, (err, results2) => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      const userCount = results2[0].userCount - 1;
+
+      console.log(users, userCount);
+      res.json({ users, userCount });
+    });
+  });
+}
+
 module.exports = {
   getInforUser,
   createUser,
   loginUser,
   logout,
   updateInfor,
+  updatePass,
+  stat,
 };

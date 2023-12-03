@@ -1,5 +1,6 @@
 const editicon = document.getElementById("editicon");
 const btnUpdate = document.getElementById("Update");
+const btnUpdatePass = document.getElementById("UpdatePass");
 const updatelist = document.querySelectorAll(".update__list");
 
 const id = document.getElementById("id").innerText;
@@ -65,4 +66,21 @@ btnUpdate.addEventListener("click", (e) => {
       },
     });
   }
+});
+
+btnUpdatePass.addEventListener("click", (e) => {
+  const newPass = prompt("Nhập Mật khẩu mới: ");
+  // console.log(newPass);
+  $.ajax({
+    url: "/newfeed/updateInfor/pass",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ newPass, id }), // Dữ liệu gửi lên server
+    success: function (res) {
+      alert(res);
+    },
+    error: function (error) {
+      console.error("Ajax request failed:", error);
+    },
+  });
 });

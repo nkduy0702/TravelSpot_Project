@@ -47,6 +47,9 @@ class NewfeedController {
   updateinfor(req, res) {
     userModel.updateInfor(req, res);
   }
+  updatePass(req, res) {
+    userModel.updatePass(req, res);
+  }
 
   detailPost(req, res) {
     // console.log(req.params.slug);

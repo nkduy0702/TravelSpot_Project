@@ -106,9 +106,10 @@
             {{#each comments}}
               <li>
                 <span id="id">{{id}}</span>
-
                 <div class="content__cmt">
-                  <strong>{{firstName}} {{lastName}} {{IdOfUser}}</strong>:
+                  <strong>{{firstName}} {{lastName}} {{IdOfUser}}</strong><i
+                  >({{formatDate created_at}})</i>
+                  :
                   <span>{{content}}</span>
                 </div>
                 {{#if isMatchedUser}}

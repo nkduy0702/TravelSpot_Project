@@ -1,0 +1,50 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="./css/admin.css" />
+  </head>
+  <body>
+    <script>
+      const Nameofuser = document.getElementById("NameOFUser");
+      Nameofuser.style.display = "block"; Nameofuser.innerText = 'Admin'
+    </script>
+
+    {{! WElcome to admin Page }}
+
+    <div class="container">
+      <h1 id="welcomeText">Welcome to Admin Page</h1>
+    </div>
+
+    {{! Stat user  }}
+
+    <h1 id="statuser">THỐNG KÊ SỐ LƯỢNG NGƯỜI DÙNG</h1>
+    <table id="tableUser">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="users">
+        <!-- Dữ liệu người dùng sẽ được thêm vào đây bằng JavaScript -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" id="userCount">Total Users: 0</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    {{! post }}
+    <h2 id="statpost">THỐNG KÊ SỐ LƯỢNG BÀI VIẾT THEO TỈNH</h2>
+    <div id="chart-container">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/admin.js"></script>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 @charset "UTF-8";
 #login,
+#statUser,
+#statPost,
 #register {
   display: none; }
 
@@ -77,6 +79,17 @@
   box-shadow: 0 5px 6px 2px #00000017;
   border: 1px solid #00000017;
   margin-bottom: 14px; }
+
+.content__cmt {
+  max-width: 90%; }
+
+.content__cmt > span {
+  word-wrap: break-word;
+  line-height: 28px; }
+
+.content__cmt > i {
+  font-size: 14px;
+  color: grey; }
 
 strong {
   color: #ff8264; }

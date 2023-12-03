@@ -207,11 +207,16 @@ function getIndividualPosts(req, res, ms) {
 
 function deletePost(req, res) {
   const { id } = req.body;
-  const sql = "DELETE FROM posts where posts.id = ?";
-  connection.query(sql, [id], (err, result) => {
+  const sql1 = "DELETE FROM ratings WHERE post_id = ?";
+  const sql2 = "DELETE FROM posts where id = ?";
+  connection.query(sql1, [id], (err, rs) => {
     if (err) throw err;
-    console.log("Delete Post Success!!");
+    connection.query(sql2, [id], (err, result) => {
+      if (err) throw err;
+      console.log("Delete Post Success!!");
+    });
   });
+
   res.send("ok");
 }
 
@@ -238,6 +243,7 @@ function delCmt(req, res) {
   const sql = "DELETE FROM comments where id = ?";
   connection.query(sql, [idCmt], (err, result) => {
     if (err) throw err;
+
     console.log("Delete Comment Success!!");
   });
   res.send("ok");
@@ -294,6 +300,30 @@ function search(req, res) {
   });
 }
 
+function stat(req, res) {
+  const sql1 = "select location from posts";
+  const sql2 = "SELECT COUNT(*) as postCount FROM posts;";
+  connection.query(sql1, (err, results1) => {
+    if (err) {
+      console.error(err);
+      throw err;
+    }
+    const locations = results1;
+
+    // Tiếp theo, thực hiện truy vấn lấy tổng số người dùng
+    connection.query(sql2, (err, results2) => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      const postCount = results2[0].postCount;
+
+      console.log(locations, postCount);
+      res.json({ locations, postCount });
+    });
+  });
+}
+
 module.exports = {
   addpost,
   getAllPosts,
@@ -307,4 +337,5 @@ module.exports = {
   updateCmt,
   rating,
   search,
+  stat,
 };

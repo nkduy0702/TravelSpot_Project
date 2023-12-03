@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "Đồng Tháp",
     "Gia Lai",
     "Hà Giang",
-    "Hà Nam",
+    "Hà Nội",
     "Hà Tĩnh",
     "Hải Dương",
     "Hậu Giang",
